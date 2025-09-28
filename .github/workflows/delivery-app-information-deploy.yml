@@ -35,14 +35,11 @@ jobs:
         uses: azure/container-apps-deploy-action@v2
         with:
           appSourcePath: ${{ github.workspace }}
-          _dockerfilePathKey_: _dockerfilePath_
-          _targetLabelKey_: _targetLabel_
+          dockerfilePath: Dockerfile
           registryUrl: ca58f5140bf6acr.azurecr.io
           registryUsername: ${{ secrets.DELIVERYAPPADMIN_REGISTRY_USERNAME }}
           registryPassword: ${{ secrets.DELIVERYAPPADMIN_REGISTRY_PASSWORD }}
           containerAppName: delivery-app-information
           resourceGroup: StreetFoodV2
           imageToBuild: ca58f5140bf6acr.azurecr.io/delivery-app-information:${{ github.sha }}
-          _buildArgumentsKey_: |
-            _buildArgumentsValues_
 
