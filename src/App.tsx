@@ -5,7 +5,6 @@ import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
 import { LanguageProvider, useLanguage } from "./LanguageContext";
 import { translations, getNestedTranslation } from './Translations';
 import PrivacyPolicyScreen from "./screens/PrivacyPolicyScreen";
-import AboutUsScreen from "./screens/AboutUsScreen";
 
 type Language = 'en' | 'ka';
 
@@ -16,9 +15,6 @@ function Navigation() {
     return (
         <nav className="navbar">
             <div className="nav-links">
-                <Link to='/about-us'>
-                    {t.nav.aboutUs}
-                </Link>
                 <Link to='/support'>
                     {t.nav.support}
                 </Link>
@@ -77,27 +73,6 @@ function Support() {
     );
 }
 
-// Wrapper components to pass translation function
-function AboutUsWrapper() {
-    const { language } = useLanguage();
-
-    // Create translation function that works with the component
-    const t = (key: string, params?: Record<string, any>) => {
-        let value = getNestedTranslation(translations[language as Language], key);
-
-        // Handle parameter replacement for things like {{version}}
-        if (params) {
-            Object.keys(params).forEach(param => {
-                value = value.replace(`{{${param}}}`, params[param]);
-            });
-        }
-
-        return value;
-    };
-
-    return <AboutUsScreen t={t} />;
-}
-
 function PrivacyPolicyWrapper() {
     const { language } = useLanguage();
 
@@ -117,8 +92,6 @@ function App() {
                     <Navigation />
 
                     <Routes>
-                        <Route path='/' element={<AboutUsWrapper />}/>
-                        <Route path='/about-us' element={<AboutUsWrapper />}/>
                         <Route path='/privacy-policy' element={<PrivacyPolicyWrapper />} />
                         <Route path='/support' element={<Support />}/>
                     </Routes>
